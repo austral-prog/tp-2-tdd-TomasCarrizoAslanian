@@ -1,23 +1,38 @@
 package com.tp2.stringcalculator;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorTest {
 
-    // TODO: Replace these lines with your tests
+    private final StringCalculator calculadora = new StringCalculator();
+
     @Test
-    void exampleTest(){
-        assertEquals(4, 2 + 1);
+    void cadenaVacia_devuelveCero() {
+        assertEquals(0, calculadora.sumar(""));
+    }
+    @Test
+    void unSoloNumero_devuelveEseNumero() {
+        assertEquals(5, calculadora.sumar("5"));
+        assertEquals(42, calculadora.sumar("42"));
+    }
+    @Test
+    void dosNumerosSeparadosPorComa_devuelveSuma() {
+        assertEquals(3, calculadora.sumar("1,2"));
+    }
+    @Test
+    void multiplesNumeros_devuelveSuma() {
+        assertEquals(6, calculadora.sumar("1,2,3"));
+        assertEquals(10, calculadora.sumar("1,2,3,4"));
+    }
+    @Test
+    void numerosNegativos_lanzanExcepcion() {
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> calculadora.sumar("1,-2,3")
+        );
+        assertTrue(ex.getMessage().contains("-2"));
     }
 
-//    Missing tests:
-//
-//- Empty string should return 0
-//- Single number should return that number
-//- Two numbers separated by comma should return their sum
-//- Multiple numbers separated by comma should return their sum
-//- Numbers separated by newline should work as delimiter
-//- Negative numbers should throw IllegalArgumentException
+
 }

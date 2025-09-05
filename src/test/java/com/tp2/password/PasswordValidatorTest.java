@@ -1,25 +1,40 @@
 package com.tp2.password;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PasswordValidatorTest {
 
-    // TODO: Replace these lines with your tests
-    @Test
-    void exampleTest(){
-        assertEquals(4, 2 + 1);
-    }
+    private final PasswordValidator validador = new PasswordValidator();
 
-//    Missing tests:
-//
-//- Password with less than 8 characters should be invalid
-//- Password with 8 or more characters should pass length validation
-//- Password without uppercase letter should be invalid
-//- Password without lowercase letter should be invalid
-//- Password without number should be invalid
-//- Password without special character should be invalid
-//- Password meeting all criteria should be valid
+    @Test
+    void contraseñaCorta_esInvalida() {
+        assertFalse(validador.esValida("Ab1!a"));
+        assertFalse(validador.esValida("Abcdef1"));
+    }
+    @Test
+    void contraseñaConOchoCaracteres_puedeSerValidaSiCumpleTodo() {
+        assertTrue(validador.esValida("Abcde1!f")); // 8 y cumple todo
+    }
+    @Test
+    void contraseñaSinMayuscula_esInvalida() {
+        assertFalse(validador.esValida("abcdefg1!"));
+    }
+    @Test
+    void contraseñaSinMinuscula_esInvalida() {
+        assertFalse(validador.esValida("ABCDEFG1!"));
+    }
+    @Test
+    void contraseñaSinNumero_esInvalida() {
+        assertFalse(validador.esValida("Abcdefgh!"));
+    }
+    @Test
+    void contraseñaSinCaracterEspecial_esInvalida() {
+        assertFalse(validador.esValida("Abcdefg1"));
+    }
+    @Test
+    void contraseñaCumpleTodosLosRequisitos_esValida() {
+        assertTrue(validador.esValida("Abcdefg1!"));
+        assertTrue(validador.esValida("Str0ng_Passw0rd!"));
+    }
 }

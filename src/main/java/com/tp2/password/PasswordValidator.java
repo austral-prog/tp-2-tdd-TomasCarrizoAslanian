@@ -1,15 +1,26 @@
 package com.tp2.password;
 
 public class PasswordValidator {
-    
-    public boolean isValid(String password) {
-        // TODO: Implement password validation following TDD approach
-        // Consider these criteria:
-        // - Minimum 8 characters
-        // - At least 1 uppercase letter
-        // - At least 1 lowercase letter  
-        // - At least 1 number
-        // - At least 1 special character (!@#$%^&*()_+-=[]{}|;:,.<>?)
-        return false;
+
+    public boolean esValida(String contraseña) {
+        if (contraseña == null || contraseña.length() < 8) {
+            return false;
+        }
+
+        boolean tieneMayuscula = false;
+        boolean tieneMinuscula = false;
+        boolean tieneNumero = false;
+        boolean tieneEspecial = false;
+
+        String especiales = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+        for (char c : contraseña.toCharArray()) {
+            if (Character.isUpperCase(c)) tieneMayuscula = true;
+            else if (Character.isLowerCase(c)) tieneMinuscula = true;
+            else if (Character.isDigit(c)) tieneNumero = true;
+            else if (especiales.indexOf(c) >= 0) tieneEspecial = true;
+        }
+
+        return tieneMayuscula && tieneMinuscula && tieneNumero && tieneEspecial;
     }
 }
